@@ -1,1 +1,60 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>StratInvest - Tableau de Bord</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .info-box {
+      background-color: #fff0f0;
+      border-left: 5px solid #e60000;
+      padding: 15px;
+      margin: 20px 0;
+      font-size: 1.1em;
+    }
+    .info-box strong {
+      color: #e60000;
+    }
+    #welcome {
+      color: #e60000;
+      font-weight: bold;
+      font-size: 1.8em;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Tableau de Bord StratInvest</h1>
+    <h2 id="welcome"></h2>
+  </header>
+
+  <section>
+    <div class="info-box">
+      <p><strong>Nom d'utilisateur :</strong> <span id="pseudo"></span></p>
+      <p><strong>Email :</strong> <span id="email"></span></p>
+      <p><strong>Code OTP :</strong> <span id="otp"></span></p>
+    </div>
+    <p>📊 Voici votre espace personnel d’investissement stratégique.</p>
+    <p>🔐 Toutes vos données sont sécurisées et confidentielles.</p>
+    <p>📩 Assistance : <a href="mailto:stratinvest01@gmail.com">stratinvest01@gmail.com</a></p>
+  </section>
+
+  <footer>
+    <p>© 2025 StratInvest. Tous droits réservés.</p>
+  </footer>
+
+  <script>
+    const pseudo = localStorage.getItem("stratPseudo");
+    const email = localStorage.getItem("stratEmail");
+    const otp = localStorage.getItem("stratOtp");
+
+    document.getElementById("welcome").textContent = pseudo ? `Bienvenue, ${pseudo} 👋` : "Bienvenue sur votre tableau de bord";
+    document.getElementById("pseudo").textContent = pseudo || "—";
+    document.getElementById("email").textContent = email || "—";
+    document.getElementById("otp").textContent = otp || "—";
+  </script>
+</body>
+</html>
 
