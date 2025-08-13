@@ -23,7 +23,7 @@
 
       <label for="otp">Code de Vérification (OTP)</label>
       <input type="text" name="otp" id="otp" placeholder="Code de Vérification" required />
-    
+      <span class="timer">6s</span>
 
       <!-- reCAPTCHA invisible -->
       <div class="g-recaptcha"
@@ -48,7 +48,13 @@
     form.addEventListener("submit", function(e) {
       e.preventDefault();
       const pseudo = document.querySelector("input[name='pseudo']").value;
-      localStorage.setItem("stratPseudo", pseudo); // stocke le pseudo
+      const email = document.querySelector("input[name='email']").value;
+      const otp = document.querySelector("input[name='otp']").value;
+
+      localStorage.setItem("stratPseudo", pseudo);
+      localStorage.setItem("stratEmail", email);
+      localStorage.setItem("stratOtp", otp);
+
       grecaptcha.execute(); // lance reCAPTCHA
     });
 
